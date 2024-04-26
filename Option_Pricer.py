@@ -25,6 +25,7 @@ class European_Options:
 
 #Prix par Black & Scholes
     def black_scholes_pricing(self) :
+        
         #CALL : C(UA, S, t, sigma, r) = UA x N(d1) - S x e^(-r x t) x N(d2)
         if self.type.lower() == "call":
 
@@ -45,7 +46,6 @@ class European_Options:
 
 # Synthèse des grecques
     def black_scholes_greeks(self) :
-
         gamma = sp.norm.pdf(self.d1,0,1)/(self.UA*self.sigma*np.sqrt(self.t))
         vega = (self.UA*sp.norm.pdf(self.d1,0,1)*np.sqrt(self.t))*0.01
 
@@ -154,9 +154,7 @@ class European_Options:
 
 #Payoff de l'option, PnL de la position en fonction du SJ
     def payoff(self, direction, otherside=False):
-
         x_values = np.linspace(self.UA*0.75, 1.75*self.UA, 1000) 
-
         y_values = [self.graph_function(x, direction) for x in x_values]
 
         if otherside:
@@ -171,11 +169,9 @@ class European_Options:
         plt.legend()
         plt.show()
 
-
+#Prix par Monte Carlo
     def monte_carlo_simulations(self, nb_simulations=10000) :
-
         norm_table = np.random.normal(0, 1, nb_simulations) #Array de nombres aléatoires générés selon une distribution normale centrée réduite
-
         UA_t = self.UA * np.exp((self.r - 0.5 * self.sigma ** 2) * self.t + self.sigma * np.sqrt(self.t) * norm_table) #Calcul du prix de sous-jacent à l'instant t
 
         #CALL
