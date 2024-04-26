@@ -2,9 +2,9 @@
 
 ## Idée générale
 
-Ce projet est consacrée à la création d'une classe d'objet "Option Européennes" et de la programmation de méthode utile à cette dernière. Une partie additionelle est consacrée au backtest du modèle de Black and Scholes avec des données empiriques. 
+Ce projet est consacré à la création d'une classe d'objet "Options Européennes" et de la programmation de méthode utile à cette dernière. Une partie additionelle est consacrée au backtest du modèle de Black and Scholes avec des données empiriques. 
 
-Cet projet a pour fondement un projet d'informatiques appliqué à la finance à mener dans le cadre de l'UE IAF Python du S2 de la L3 d'Économie et Ingénierie financière de l'université Paris - Dauphine. Bien que son objectif premier soit une démonstration de notre maîtrise du programme de l'UE nous avons tout de même accordé un point d'honneur à rendre ce projet aussi cohérent que notre statut d'étudiant en L3 pouvait nous le permettre.
+Ce projet a pour fondement un projet d'informatique appliqué à la finance à mener dans le cadre de l'UE IAF Python du S2 de la L3 d'Économie et Ingénierie financière de l'université Paris - Dauphine. Bien que son objectif premier soit une démonstration de notre maîtrise du programme de l'UE nous avons tout de même mis un point d'honneur à rendre ce projet aussi cohérent que notre statut d'étudiant en L3 pouvait nous le permettre.
 
 ## Classe d'objet "European Options"
 
@@ -30,7 +30,7 @@ Rappel sur les grecques:
 
 ### Attributs 
 
-En attributs de la classe d'objet les paramètres classiques utiles au pricing d'une option européenne dans le cadre du modèle Black & Scholes; le prix du sous-jacent (UA), le strike (S), la variable temps (t), la volatilité (sigma), le taux sans-risque (r) et le type de l'option (Put/Call).
+En attributs de la classe d'objet les paramètres classiques utiles au pricing d'une option européenne dans le cadre du modèle Black & Scholes; le prix du sous-jacent (UA), le strike (S), la variable temps (t), la volatilité (sigma), le taux sans-risque (r) et le type de l'option (type: Put/Call).
 
 ### Méthode: .d1
 
@@ -74,11 +74,11 @@ Permet de dessiner un graphique du PnL de l'option en fonction de l'évolution d
 
 ### Méthode: .monte_carlo_simulations
 
-Permet de calculer le prix selon la méthode de Monte Carlo. Le nombre de simulation a éxécuter est un argument optionnel est par défaut établi à 10 000.
+Permet de calculer le prix selon la méthode de Monte Carlo. Le nombre de simulations à éxécuter est un argument optionnel est par défaut établi à 10 000.
 
 ## Fichier Test_Object Class
 
-Permet simplement d'instancier plusieurs options, d'en calculer leurs prix, leurs grecques et de tracer leurs payoffs. Nous permet de tester à part notre classe d'objet consacrée aux otpions européennes. 
+Permet simplement d'instancier plusieurs options, d'en calculer leurs prix, leurs grecques et de tracer leurs payoffs. Nous permet de tester à part notre classe d'objet consacrée aux options européennes. 
 
 ## Fichier Backtest_BS
 
