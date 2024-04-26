@@ -52,7 +52,7 @@ for symbol in historical_data:
 
         UA_t /= len(norm_table)
 
-        #Récupération de cours du sous-jacent à la date t (Close) : vérifier si on prend le Close ou Adjusted Close ??????????????????????????
+        #Récupération de cours du sous-jacent à la date t (Close)
         real_UA_t= stock_data.iloc[j+int(len(stock_data)/2),4]
 
         difference += 1 - UA_t/real_UA_t #Comparaison et stockage de la différence (en pourcentage)
