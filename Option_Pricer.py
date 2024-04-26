@@ -20,7 +20,7 @@ class European_Options:
 
 #d2
     def d2(self) :
-        return self.d1 - self.sigma * np.sqrt(self.t)
+        return self.d1() - self.sigma * np.sqrt(self.t)
 
 
 #Prix par Black & Scholes
@@ -29,12 +29,12 @@ class European_Options:
         #CALL : C(UA, S, t, sigma, r) = UA x N(d1) - S x e^(-r x t) x N(d2)
         if self.type.lower() == "call":
 
-            price=self.UA*sp.norm.cdf(self.d1,0,1)-self.S*np.exp(-self.r*self.t)*sp.norm.cdf(self.d2,0,1)
+            price=self.UA*sp.norm.cdf(self.d1(),0,1)-self.S*np.exp(-self.r*self.t)*sp.norm.cdf(self.d2(),0,1)
 
         #PUT : P(UA, S, t, sigma, r) = S x e^(-r x t) x N(-d2) - UA x N(-d1)
         elif self.type.lower() == "put":
 
-            price=self.S*np.exp(-self.r*self.t)*sp.norm.cdf(-self.d2,0,1)-self.UA*sp.norm.cdf(-self.d1,0,1)
+            price=self.S*np.exp(-self.r*self.t)*sp.norm.cdf(-self.d2(),0,1)-self.UA*sp.norm.cdf(-self.d1(),0,1)
 
         #Sinon
         else :
@@ -46,20 +46,20 @@ class European_Options:
 
 # Synthèse des grecques
     def black_scholes_greeks(self) :
-        gamma = sp.norm.pdf(self.d1,0,1)/(self.UA*self.sigma*np.sqrt(self.t))
-        vega = (self.UA*sp.norm.pdf(self.d1,0,1)*np.sqrt(self.t))*0.01
+        gamma = sp.norm.pdf(self.d1(),0,1)/(self.UA*self.sigma*np.sqrt(self.t))
+        vega = (self.UA*sp.norm.pdf(self.d1(),0,1)*np.sqrt(self.t))*0.01
 
         #CALL
         if self.type.lower() == "call":
-            delta = sp.norm.cdf(self.d1,0,1)
-            theta = (-self.UA*sp.norm.pdf(self.d1,0,1)*self.sigma/(2*self.t) - self.r*self.S*np.exp(-self.r*self.t)*sp.norm.cdf(self.d2,0,1))/365
-            rho = (self.S*self.t*np.exp(-self.r*self.t)*sp.norm.cdf(self.d2,0,1))*0.01
+            delta = sp.norm.cdf(self.d1(),0,1)
+            theta = (-self.UA*sp.norm.pdf(self.d1(),0,1)*self.sigma/(2*self.t) - self.r*self.S*np.exp(-self.r*self.t)*sp.norm.cdf(self.d2(),0,1))/365
+            rho = (self.S*self.t*np.exp(-self.r*self.t)*sp.norm.cdf(self.d2(),0,1))*0.01
 
         #PUT
         elif self.type.lower() == "put":
-            delta = -sp.norm.cdf(-self.d1,0,1)
-            theta = (-self.UA*sp.norm.pdf(self.d1,0,1)*self.sigma/(2*self.t) + self.r*self.S*np.exp(-self.r*self.t)*sp.norm.cdf(-self.d2,0,1))/365
-            rho = (- self.S*self.t*np.exp(-self.r*self.t)*sp.norm.cdf(-self.d2,0,1))*0.01
+            delta = -sp.norm.cdf(-self.d1(),0,1)
+            theta = (-self.UA*sp.norm.pdf(self.d1(),0,1)*self.sigma/(2*self.t) + self.r*self.S*np.exp(-self.r*self.t)*sp.norm.cdf(-self.d2(),0,1))/365
+            rho = (- self.S*self.t*np.exp(-self.r*self.t)*sp.norm.cdf(-self.d2(),0,1))*0.01
 
         #Sinon
         else:
@@ -74,23 +74,23 @@ class European_Options:
 
 #Gamma
     def bs_gamma(self) :
-        return sp.norm.pdf(self.d1,0,1)/(self.UA*self.sigma*np.sqrt(self.t))
+        return sp.norm.pdf(self.d1(),0,1)/(self.UA*self.sigma*np.sqrt(self.t))
 
 
 #Vega
     def bs_vega(self) :
-        return (self.UA*sp.norm.pdf(self.d1,0,1)*np.sqrt(self.t))*0.01
+        return (self.UA*sp.norm.pdf(self.d1(),0,1)*np.sqrt(self.t))*0.01
     
 
 #Delta
     def bs_delta(self) :
         #CALL
         if self.type.lower() == "call":
-            delta = sp.norm.cdf(self.d1,0,1)
+            delta = sp.norm.cdf(self.d1(),0,1)
 
         #PUT
         elif self.type.lower() == "put":
-            delta = -sp.norm.cdf(-self.d1,0,1)
+            delta = -sp.norm.cdf(-self.d1(),0,1)
 
         #Sinon
         else:
@@ -103,11 +103,11 @@ class European_Options:
     def bs_theta(self) :
         #CALL
         if self.type.lower() == "call":
-            theta = (-self.UA*sp.norm.pdf(self.d1,0,1)*self.sigma/(2*self.t) - self.r*self.S*np.exp(-self.r*self.t)*sp.norm.cdf(self.d2,0,1))/365
+            theta = (-self.UA*sp.norm.pdf(self.d1(),0,1)*self.sigma/(2*self.t) - self.r*self.S*np.exp(-self.r*self.t)*sp.norm.cdf(self.d2(),0,1))/365
 
         #PUT
         elif self.type.lower() == "put":
-            theta = (-self.UA*sp.norm.pdf(self.d1,0,1)*self.sigma/(2*self.t) + self.r*self.S*np.exp(-self.r*self.t)*sp.norm.cdf(-self.d2,0,1))/365
+            theta = (-self.UA*sp.norm.pdf(self.d1(),0,1)*self.sigma/(2*self.t) + self.r*self.S*np.exp(-self.r*self.t)*sp.norm.cdf(-self.d2(),0,1))/365
 
         #Sinon
         else:
@@ -120,11 +120,11 @@ class European_Options:
     def bs_rho (self) :
         #CALL
         if self.type.lower() == "call":
-            rho = (self.S*self.t*np.exp(-self.r*self.t)*sp.norm.cdf(self.d2,0,1))*0.01
+            rho = (self.S*self.t*np.exp(-self.r*self.t)*sp.norm.cdf(self.d2(),0,1))*0.01
 
         #PUT
         elif self.type.lower() == "put":
-            rho = (- self.S*self.t*np.exp(-self.r*self.t)*sp.norm.cdf(-self.d2,0,1))*0.01
+            rho = (- self.S*self.t*np.exp(-self.r*self.t)*sp.norm.cdf(-self.d2(),0,1))*0.01
 
         #Sinon
         else:
@@ -190,4 +190,3 @@ class European_Options:
         monte_carlo_result = np.exp(-self.r * self.t) * np.mean(monte_carlo_result) #Moyenne des simulations actualisée
 
         return monte_carlo_result
-
