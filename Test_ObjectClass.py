@@ -24,8 +24,8 @@ for element in option.black_scholes_greeks():
 
 
 #Afficher les payoffs
-option.graph('long',True)   
-option1.graph('long',True)   
+option.payoff('long',True)   
+option1.payoff('long',True)   
 
 
 #Afficher son prix par Monte Carlo
